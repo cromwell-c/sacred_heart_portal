@@ -455,8 +455,8 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
           </div>
           <div class="g3 mb">
             <div class="field"><label>Date of Birth <span class="req">*</span></label><input type="date" id="date_of_birth"></div>
-            <div class="field"><label>Nationality <span class="req">*</span></label><select id="nationality"><option value="">— Select —</option></select></div>
-            <div class="field"><label>Country of Origin</label><select id="country_of_origin"><option value="">— Select —</option></select></div>
+            <div class="field"><label>Nationality <span class="req">*</span></label><input type="text" id="nationality" placeholder="e.g. Ghanaian"></div>
+            <div class="field"><label>Country of Origin</label><input type="text" id="country_of_origin" placeholder="e.g. Ghana"></div>
           </div>
           <div class="g2">
             <div class="field"><label>National ID Type <span class="req">*</span></label><select id="national_id_type"><option value="">— Select —</option><option>Ghana Card</option><option>Passport</option><option>Voter ID</option><option>NHIS</option><option>Driver's License</option><option>Other</option></select></div>
@@ -1266,12 +1266,12 @@ function goStep(n){
 }
 function populateCountrySelects(){
   const countries=['Ghana','Nigeria','Côte d\'Ivoire','Burkina Faso','Togo','Benin','Senegal','Gambia','United States','United Kingdom','Canada','South Africa','Kenya','Ethiopia'];
-  ['nationality','country_of_origin','country'].forEach(id=>{
-    const el=document.getElementById(id);if(!el) return;
-    const current=el.value||'Ghana';
-    el.innerHTML='<option value="">— Select —</option>' + countries.map(c=>`<option value="${c}" ${current===c?'selected':''}>${c}</option>`).join('');
-    if(id==='country' && !el.value) el.value='Ghana';
-  });
+  const countryEl=document.getElementById('country');
+  if(countryEl){
+    const current=countryEl.value||'Ghana';
+    countryEl.innerHTML='<option value="">— Select —</option>' + countries.map(c=>`<option value="${c}" ${current===c?'selected':''}>${c}</option>`).join('');
+    if(!countryEl.value) countryEl.value='Ghana';
+  }
 }
 function validateStep(s){for(const id of(REQ[s]||[])){const e=document.getElementById(id);if(!e||!e.value.trim()){e&&e.focus();showToast('reg-toast','Please fill all required fields (marked *)','err');return false;}}if(s===1){const dob=document.getElementById('date_of_birth').value;if(!dob){showToast('reg-toast','Please enter a valid date of birth.','err');return false;}const age=(new Date()-new Date(dob))/(365.25*86400000);if(age<0||age>120){showToast('reg-toast','Date of birth is outside a reasonable range.','err');return false;}}if(s===2){const phone=v('phone_primary');const phoneOk=/^(\+233\d{9}|0\d{9})$/.test(phone);if(!phoneOk){showToast('reg-toast','Phone number must use +233XXXXXXXXX or 0XXXXXXXXX format.','err');return false;}if(!v('community')||!v('city')){showToast('reg-toast','Community and city are required.','err');return false;}}if(s===3){const isB=v('is_baptised');const isC=v('is_confirmed');if(!isB||!isC){showToast('reg-toast','Please answer baptism and confirmation.','err');return false;}}return true;}
 function togglePill(lbl){const cb=lbl.querySelector('input');setTimeout(()=>lbl.classList.toggle('on',cb.checked),0);}
