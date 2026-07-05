@@ -492,15 +492,14 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
           <div class="g3 mb">
             <div class="field"><label>Are you Baptised? <span class="req">*</span></label><select id="is_baptised"><option value="">— Select —</option><option value="true">Yes</option><option value="false">No</option></select></div>
             <div class="field"><label>Confirmation <span class="req">*</span></label><select id="is_confirmed"><option value="">— Select —</option><option value="true">Yes</option><option value="false">No</option></select></div>
-            <div class="field"><label>Registered Society</label><select id="registered_society"><option value="">— Select —</option><option>Choir</option><option>Women Fellowship</option><option>Men Fellowship</option><option>Youth</option><option>Children</option><option>Ushering</option><option>Prayer Team</option><option>Evangelism</option><option>Other</option></select></div>
+            <div class="field"><label>Registered Society</label><select id="registered_society"><option value="">— Select —</option><option>Choir</option><option>Men's Fellowship</option><option>Women's Fellowship</option><option>Youth</option><option>Ushering</option><option>Evangelism</option><option>Prayer</option><option>Children's Ministry</option><option>Other</option></select></div>
           </div>
           <div class="g3 mb">
-            <div class="field"><label>Society Name</label><input type="text" id="cell_group" placeholder="Assigned after approval" disabled></div>
-            <div class="field"><label>Referred By</label><input type="text" id="referral_member_name" placeholder="Member name (if any)"></div>
-            <div class="field"><label>Membership Class Attended</label><select id="membership_class_attended"><option value="">— Select —</option><option>Yes</option><option>No</option><option>In Progress</option></select></div>
+            <div class="field"><label>Society Name</label><input type="text" id="society_name" placeholder="Assigned after approval" disabled></div>
+            <div class="field"><label>Referred By</label><input type="text" id="referred_by" placeholder="Member name (optional)"></div>
+            <div class="field"><label>Membership Class</label><select id="membership_class_attended"><option value="">— Select —</option><option>Yes</option><option>No</option><option>In Progress</option></select></div>
           </div>
-          <div class="card-title" style="margin-top:10px;margin-bottom:12px;font-size:10px;">Ministry / Department of Interest</div>
-          <div class="pill-grid">
+          <div class="card" style="margin:0;padding:16px 18px;border:1px dashed var(--border);box-shadow:none;"><div class="card-title" style="margin-bottom:12px;">Ministry / Department of Interest</div><div class="pill-grid">
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Choir/Worship"><i class="fa fa-music"></i> Choir / Worship</label>
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Ushering"><i class="fa fa-hands"></i> Ushering</label>
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Children's Ministry"><i class="fa fa-baby"></i> Children's</label>
@@ -510,7 +509,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Media/Tech"><i class="fa fa-video"></i> Media / Tech</label>
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Evangelism"><i class="fa fa-book"></i> Evangelism</label>
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Prayer Team"><i class="fa fa-praying-hands"></i> Prayer Team</label>
-          </div>
+          </div></div>
         </div>
         <div class="card"><div class="card-title">Additional Notes</div><div class="field"><label>Additional Notes</label><textarea id="special_needs" placeholder="Any additional notes — pastoral care, special needs, etc."></textarea></div></div>
         <div class="btn-row"><button class="btn btn-ghost" onclick="goStep(2)">← Back</button><button class="btn btn-navy" onclick="goStep(4)">Next: Review →</button></div>
@@ -1206,6 +1205,7 @@ function showLoginError(m){const e=document.getElementById('login-error');e.text
 function doLogout(){currentUser=null;document.getElementById('app-screen').style.display='none';document.getElementById('login-screen').style.display='flex';document.getElementById('login-username').value='';document.getElementById('login-password').value='';}
 
 function bootApp(){
+  populateCountrySelects();
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app-screen').style.display='block';
   const rl={admin:'Admin',data_entry:'Data Entry',finance:'Finance',viewer:'Viewer'};
@@ -1253,7 +1253,7 @@ function showPage(name,el){
 
 // ══════════════════ REGISTRATION ══════════════════
 let cur=1;const TOTAL_STEPS=4;
-const REQ={1:['gender','first_name','last_name','date_of_birth','marital_status','nationality','national_id_type','national_id_number'],2:['phone_primary','community','city'],3:['occupation','society','profile_photo'],4:[]};
+const REQ={1:['gender','first_name','last_name','date_of_birth','marital_status','nationality','national_id_type','national_id_number'],2:['phone_primary','community','city'],3:['occupation','is_baptised','is_confirmed'],4:[]};
 function goStep(n){
   if(n>cur&&!validateStep(cur))return;
   document.getElementById('step-'+cur).style.display='none';
@@ -1264,18 +1264,27 @@ function goStep(n){
   }
   cur=n;document.getElementById('step-'+n).style.display='block';window.scrollTo({top:0,behavior:'smooth'});
 }
-function validateStep(s){for(const id of(REQ[s]||[])){const e=document.getElementById(id);if(!e||!e.value.trim()){e&&e.focus();showToast('reg-toast','Please fill all required fields (marked *)','err');return false;}}return true;}
+function populateCountrySelects(){
+  const countries=['Ghana','Nigeria','Côte d\'Ivoire','Burkina Faso','Togo','Benin','Senegal','Gambia','United States','United Kingdom','Canada','South Africa','Kenya','Ethiopia'];
+  ['nationality','country_of_origin','country'].forEach(id=>{
+    const el=document.getElementById(id);if(!el) return;
+    const current=el.value||'Ghana';
+    el.innerHTML='<option value="">— Select —</option>' + countries.map(c=>`<option value="${c}" ${current===c?'selected':''}>${c}</option>`).join('');
+    if(id==='country' && !el.value) el.value='Ghana';
+  });
+}
+function validateStep(s){for(const id of(REQ[s]||[])){const e=document.getElementById(id);if(!e||!e.value.trim()){e&&e.focus();showToast('reg-toast','Please fill all required fields (marked *)','err');return false;}}if(s===1){const dob=document.getElementById('date_of_birth').value;if(!dob){showToast('reg-toast','Please enter a valid date of birth.','err');return false;}const age=(new Date()-new Date(dob))/(365.25*86400000);if(age<0||age>120){showToast('reg-toast','Date of birth is outside a reasonable range.','err');return false;}}if(s===2){const phone=v('phone_primary');const phoneOk=/^(\+233\d{9}|0\d{9})$/.test(phone);if(!phoneOk){showToast('reg-toast','Phone number must use +233XXXXXXXXX or 0XXXXXXXXX format.','err');return false;}if(!v('community')||!v('city')){showToast('reg-toast','Community and city are required.','err');return false;}}if(s===3){const isB=v('is_baptised');const isC=v('is_confirmed');if(!isB||!isC){showToast('reg-toast','Please answer baptism and confirmation.','err');return false;}}return true;}
 function togglePill(lbl){const cb=lbl.querySelector('input');setTimeout(()=>lbl.classList.toggle('on',cb.checked),0);}
 function submitForm(){
   const p=PERMS[currentUser?.role]||{};
   if(!p.register){showToast('reg-toast','Your role cannot register members.','err');return;}
   if(!document.getElementById('declaration_agreed').checked){showToast('reg-toast','Please agree to the declaration.','err');return;}
   const min=[];document.querySelectorAll('.pill input:checked').forEach(cb=>min.push(cb.value));
-  const data={title:v('title'),first_name:v('first_name'),middle_name:v('middle_name'),last_name:v('last_name'),gender:v('gender'),date_of_birth:v('date_of_birth'),marital_status:v('marital_status'),nationality:v('nationality'),country_of_origin:v('country_of_origin'),national_id_type:v('national_id_type'),national_id_number:v('national_id_number'),phone_primary:v('phone_primary'),phone_secondary:v('phone_secondary'),email_address:v('email_address'),residential_address:v('residential_address'),community:v('community'),city:v('city'),region:v('region'),country:v('country'),digital_address:v('digital_address'),occupation:v('occupation'),employer_name:v('employer_name'),society:v('society'),educational_level:v('educational_level'),next_of_kin_address:v('next_of_kin_address'),membership_class_attended:v('membership_class_attended'),cell_group:v('cell_group'),referral_member_name:v('referral_member_name'),ministry_interest:min.join(', '),special_needs:v('special_needs'),profile_photo:v('profile_photo'),declaration_agreed:'TRUE'};
+  const data={title:v('title'),first_name:v('first_name'),middle_name:v('middle_name'),last_name:v('last_name'),gender:v('gender'),date_of_birth:v('date_of_birth'),marital_status:v('marital_status'),nationality:v('nationality'),country_of_origin:v('country_of_origin'),national_id_type:v('national_id_type'),national_id_number:v('national_id_number'),phone_primary:v('phone_primary'),phone_secondary:v('phone_secondary'),email_address:v('email_address'),residential_address:v('residential_address'),community:v('community'),city:v('city'),region:v('region'),country:v('country'),digital_address:v('digital_address'),occupation:v('occupation'),employer_name:v('employer_name'),registered_society:v('registered_society'),society_name:v('society_name'),society:v('registered_society'),educational_level:v('educational_level'),next_of_kin_address:v('next_of_kin_address'),membership_class_attended:v('membership_class_attended'),cell_group:v('society_name'),referral_member_name:v('referred_by'),is_baptised:v('is_baptised'),is_confirmed:v('is_confirmed'),ministry_interest:min.join(', '),special_needs:v('special_needs'),profile_photo:v('profile_photo'),declaration_agreed:'TRUE'};
   const btn=document.getElementById('btn-submit');btn.disabled=true;document.getElementById('submit-spin').style.display='block';
   apiPost('members', data).then(r => {document.getElementById('submit-spin').style.display='none';btn.disabled=false;showToast('reg-toast','✅ Registered! Member ID: '+r.memberId,'ok');resetRegForm();goStep(1);}).catch(e => {document.getElementById('submit-spin').style.display='none';btn.disabled=false;showToast('reg-toast','❌ '+e.message,'err');});
 }
-function resetRegForm(){document.querySelectorAll('#page-register input:not([type=checkbox]),#page-register select,#page-register textarea').forEach(el=>el.value='');document.getElementById('country').value='Ghana';document.querySelectorAll('#page-register input[type=checkbox]').forEach(cb=>cb.checked=false);document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));}
+function resetRegForm(){document.querySelectorAll('#page-register input:not([type=checkbox]),#page-register select,#page-register textarea').forEach(el=>el.value='');document.getElementById('country').value='Ghana';document.querySelectorAll('#page-register input[type=checkbox]').forEach(cb=>cb.checked=false);document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));populateCountrySelects();document.getElementById('society_name').disabled=true;}
 
 // ══════════════════ SEARCH & MEMBERS ══════════════════
 let activeSearchMember = null;
@@ -1945,6 +1954,7 @@ function doChangePassword(){
 
 // ══════════════════ UTILS ══════════════════
 function v(id){const e=document.getElementById(id);return e?e.value.trim():'';}
+window.addEventListener('DOMContentLoaded', populateCountrySelects);
 function showToast(id,msg,type){const t=document.getElementById(id);if(!t)return;t.textContent=msg;t.className='toast '+type;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',6000);}
 function errBox(msg){return'<div class="err-box">❌ '+msg+'</div>';}
 document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');});});
