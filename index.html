@@ -455,8 +455,8 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
           </div>
           <div class="g3 mb">
             <div class="field"><label>Date of Birth <span class="req">*</span></label><input type="date" id="date_of_birth"></div>
-            <div class="field"><label>Nationality <span class="req">*</span></label><input type="text" id="nationality" placeholder="e.g. Ghanaian"></div>
-            <div class="field"><label>Country of Origin</label><input type="text" id="country_of_origin" placeholder="e.g. Ghana"></div>
+            <div class="field"><label>Nationality <span class="req">*</span></label><select id="nationality"><option value="">— Select —</option></select></div>
+            <div class="field"><label>Country of Origin</label><select id="country_of_origin"><option value="">— Select —</option></select></div>
           </div>
           <div class="g2">
             <div class="field"><label>National ID Type <span class="req">*</span></label><select id="national_id_type"><option value="">— Select —</option><option>Ghana Card</option><option>Passport</option><option>Voter ID</option><option>NHIS</option><option>Driver's License</option><option>Other</option></select></div>
@@ -478,24 +478,28 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
             <div class="field"><label>City / Town <span class="req">*</span></label><input type="text" id="city" placeholder="e.g. Kumasi"></div>
             <div class="field"><label>Region</label><select id="region"><option value="">— Select —</option><option>Ashanti</option><option>Greater Accra</option><option>Central</option><option>Eastern</option><option>Western</option><option>Western North</option><option>Brong-Ahafo</option><option>Bono</option><option>Bono East</option><option>Ahafo</option><option>Northern</option><option>Savannah</option><option>North East</option><option>Upper East</option><option>Upper West</option><option>Oti</option><option>Volta</option></select></div>
           </div>
-          <div class="g2"><div class="field"><label>Country</label><input type="text" id="country" value="Ghana"></div><div class="field"><label>Digital / GPS Address</label><input type="text" id="digital_address" placeholder="e.g. AK-123-4567"><span class="hint">Ghana Post GPS</span></div></div>
+          <div class="g2"><div class="field"><label>Country <span class="req">*</span></label><select id="country"><option value="">— Select —</option></select></div><div class="field"><label>Digital / GPS Address</label><input type="text" id="digital_address" placeholder="e.g. AK-123-4567"><span class="hint">Ghana Post GPS</span></div></div>
         </div>
         <div class="btn-row"><button class="btn btn-ghost" onclick="goStep(1)">← Back</button><button class="btn btn-navy" onclick="goStep(3)">Next: Profession →</button></div>
       </div>
       <div id="step-3" style="display:none">
         <div class="card"><div class="card-title">Profession &amp; Education</div>
           <div class="g2 mb"><div class="field"><label>Occupation <span class="req">*</span></label><input type="text" id="occupation" placeholder="e.g. Teacher, Nurse, Trader"></div><div class="field"><label>Employer / Business Name</label><input type="text" id="employer_name" placeholder="Optional"></div></div>
-          <div class="g2"><div class="field"><label>Society <span class="req">*</span></label><input type="text" id="society" placeholder="e.g. Christian Society"></div><div class="field"><label>Educational Level</label><select id="educational_level"><option value="">— Select —</option><option>No Formal Education</option><option>Primary</option><option>JHS / Middle School</option><option>SHS / Secondary</option><option>Vocational / Technical</option><option>Diploma</option><option>Undergraduate Degree</option><option>Postgraduate Degree</option><option>PhD</option><option>Other</option></select></div></div>
+          <div class="field"><label>Educational Level</label><select id="educational_level"><option value="">— Select —</option><option>No Formal Education</option><option>Primary</option><option>JHS / Middle School</option><option>SHS / Secondary</option><option>Vocational / Technical</option><option>Diploma</option><option>Undergraduate Degree</option><option>Postgraduate Degree</option><option>PhD</option><option>Other</option></select></div>
         </div>
         <div class="card"><div class="card-title">Next of Kin</div><div class="field"><label>Next of Kin Address</label><input type="text" id="next_of_kin_address" placeholder="Address of next of kin"></div></div>
-        <div class="card"><div class="card-title">Church Membership Details</div>
+        <div class="card"><div class="card-title">Church Membership &amp; Ministry Involvement</div>
           <div class="g3 mb">
-            <div class="field"><label>Society?</label><select id="membership_class_attended"><option value="">— Select —</option><option>Yes</option><option>No</option><option>In Progress</option></select></div>
-            <div class="field"><label>Society Name</label><input type="text" id="cell_group" placeholder="Assigned after approval"></div>
-            <div class="field"><label>Referred By</label><input type="text" id="referral_member_name" placeholder="Member name (if any)"></div>
+            <div class="field"><label>Are you Baptised? <span class="req">*</span></label><select id="is_baptised"><option value="">— Select —</option><option value="true">Yes</option><option value="false">No</option></select></div>
+            <div class="field"><label>Confirmation <span class="req">*</span></label><select id="is_confirmed"><option value="">— Select —</option><option value="true">Yes</option><option value="false">No</option></select></div>
+            <div class="field"><label>Registered Society</label><select id="registered_society"><option value="">— Select —</option><option>Choir</option><option>Women Fellowship</option><option>Men Fellowship</option><option>Youth</option><option>Children</option><option>Ushering</option><option>Prayer Team</option><option>Evangelism</option><option>Other</option></select></div>
           </div>
-        </div>
-        <div class="card"><div class="card-title">Ministry / Department of Interest</div>
+          <div class="g3 mb">
+            <div class="field"><label>Society Name</label><input type="text" id="cell_group" placeholder="Assigned after approval" disabled></div>
+            <div class="field"><label>Referred By</label><input type="text" id="referral_member_name" placeholder="Member name (if any)"></div>
+            <div class="field"><label>Membership Class Attended</label><select id="membership_class_attended"><option value="">— Select —</option><option>Yes</option><option>No</option><option>In Progress</option></select></div>
+          </div>
+          <div class="card-title" style="margin-top:10px;margin-bottom:12px;font-size:10px;">Ministry / Department of Interest</div>
           <div class="pill-grid">
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Choir/Worship"><i class="fa fa-music"></i> Choir / Worship</label>
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Ushering"><i class="fa fa-hands"></i> Ushering</label>
@@ -508,7 +512,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
             <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Prayer Team"><i class="fa fa-praying-hands"></i> Prayer Team</label>
           </div>
         </div>
-        <div class="card"><div class="card-title">Additional Notes</div><div class="field"><label>Special Needs / Disabilities</label><textarea id="special_needs" placeholder="Optional — for pastoral care purposes only"></textarea></div></div>
+        <div class="card"><div class="card-title">Additional Notes</div><div class="field"><label>Additional Notes</label><textarea id="special_needs" placeholder="Any additional notes — pastoral care, special needs, etc."></textarea></div></div>
         <div class="btn-row"><button class="btn btn-ghost" onclick="goStep(2)">← Back</button><button class="btn btn-navy" onclick="goStep(4)">Next: Review →</button></div>
       </div>
       <div id="step-4" style="display:none">
@@ -523,9 +527,9 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
 
     <!-- ══ SEARCH ══ -->
     <div id="page-search" class="page">
-      <div class="ph"><h2>Search Member</h2><p>Find any member by phone number, Ghana Card / National ID, or Church Member ID.</p></div>
-      <div class="search-hint"><div class="sh-badge"><span>1st</span> Phone Number</div><div class="sh-badge"><span>2nd</span> Ghana Card / National ID</div><div class="sh-badge"><span>3rd</span> Church Member ID</div></div>
-      <div class="sbar"><input type="text" id="search-input" placeholder="e.g. 0244123456 · GHA-XXXXXXXX-X · CHU-2026-0001" onkeydown="if(event.key==='Enter')doSearch()"><button class="btn btn-navy" onclick="doSearch()">Search</button></div>
+      <div class="ph"><h2>Search Member</h2><p>Find any member by name, phone number, national ID, member ID, or community.</p></div>
+      <div class="search-hint"><div class="sh-badge"><span>1st</span> Name</div><div class="sh-badge"><span>2nd</span> Phone or ID</div><div class="sh-badge"><span>3rd</span> Community</div></div>
+      <div class="sbar"><input type="text" id="search-input" placeholder="Try a name, phone, ID, or community" onkeydown="if(event.key==='Enter')doSearch()"><button class="btn btn-navy" onclick="doSearch()">Search</button></div>
       <div class="spin" id="search-spin">🔍 Searching…</div>
       <div id="search-result"></div>
     </div>
@@ -537,7 +541,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
         <div class="g2" style="gap:14px;align-items:end;">
           <div class="field" style="margin-bottom:0;">
             <label>Search members</label>
-            <input type="text" id="members-search-input" placeholder="Search by name, member ID, phone, or national ID" onkeydown="if(event.key==='Enter')loadMembers(1)">
+            <input type="text" id="members-search-input" placeholder="Search by name, phone, ID, or community" onkeydown="if(event.key==='Enter')loadMembers(1)">
           </div>
           <div class="field" style="justify-content:flex-end;margin-bottom:0;">
             <label>&nbsp;</label>
@@ -1393,19 +1397,15 @@ function recordPaymentFromSearch(memberId) {
 }
 
 function doSearch(){
-  const q=document.getElementById('search-input').value.trim();if(!q)return;
+  const q=document.getElementById('search-input').value.trim();
+  if(!q){document.getElementById('search-result').innerHTML='<div class="empty"><div class="ei">🔍</div><p>Enter a name, phone, ID, or community.</p></div>';return;}
   document.getElementById('search-spin').style.display='block';document.getElementById('search-result').innerHTML='';
   activeSearchMember = null;
-  apiGet('members/search', {query:q}).then(m=>{
+  apiGet('members', {query:q, page:1, page_size:10}).then(payload=>{
     document.getElementById('search-spin').style.display='none';
-    if(m&&m.error){document.getElementById('search-result').innerHTML=errBox(m.error);return;}
-    if(!m){document.getElementById('search-result').innerHTML='<div class="empty"><div class="ei">🔍</div><p>No member found.</p></div>';return;}
-    activeSearchMember = m;
-    loadSearchPaymentConfig().then(cfg => {
-      document.getElementById('search-result').innerHTML = `<div class="mgrid">${mCard(m)}</div>${buildSearchPaymentPanel(m, cfg)}`;
-    }).catch(() => {
-      document.getElementById('search-result').innerHTML = `<div class="mgrid">${mCard(m)}</div>${buildSearchPaymentPanel(m, null)}`;
-    });
+    const items = Array.isArray(payload) ? payload : (payload.items || []);
+    if(!items.length){document.getElementById('search-result').innerHTML='<div class="empty"><div class="ei">🔍</div><p>No members matched your search.</p></div>';return;}
+    document.getElementById('search-result').innerHTML=`<div class="card" style="padding:14px 16px;margin-bottom:12px;"><div class="stat-sub">Showing ${items.length} matching member${items.length===1?'':'s'} for “${q}”</div></div><div class="mgrid">${items.map(mCard).join('')}</div>`;
   }).catch(e=>{document.getElementById('search-spin').style.display='none';document.getElementById('search-result').innerHTML=errBox(e.message);});
 }
 function loadMembers(page = 1){
@@ -1450,13 +1450,31 @@ function getMemberAvatarSrc(m){
   return MEMBER_AVATARS.generic;
 }
 
+function toggleMemberPaymentPanel(containerId, memberId){
+  const panel=document.getElementById('member-payment-'+containerId);
+  if(!panel)return;
+  if(panel.style.display==='block' && panel.innerHTML.trim()){
+    panel.innerHTML='';
+    panel.style.display='none';
+    return;
+  }
+  panel.innerHTML='<div class="hint">Loading payment form…</div>';
+  panel.style.display='block';
+  loadSearchPaymentConfig().then(cfg=>{
+    panel.innerHTML=buildSearchPaymentPanel({member_id:memberId,full_name:memberId},cfg);
+  }).catch(()=>{
+    panel.innerHTML=buildSearchPaymentPanel({member_id:memberId,full_name:memberId},null);
+  });
+}
+
 function mCard(m){
   const name=m.full_name||[m.title,m.first_name,m.last_name].filter(Boolean).join(' ');
   const ini=name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
   const stat=m.membership_class_attended==='Yes'?'active':'pending';
   const avatarSrc = getMemberAvatarSrc(m);
+  const safeId=(m.member_id||'member').replace(/[^a-zA-Z0-9_-]/g,'_');
   const avatar = `<div class="mc-av mc-av-photo" style="background-image:url('${avatarSrc}');"><span>${ini}</span></div>`;
-  return`<div class="mc">${avatar}<div class="mc-name">${name}</div><div class="mc-id">${m.member_id||''}</div><div class="mc-row"><i class="fa fa-phone"></i> <span>${m.phone_primary||'—'}</span></div><div class="mc-row"><i class="fa fa-id-card"></i> <span>${m.national_id_number||'—'}</span></div><div class="mc-row"><i class="fa fa-map-marker"></i> <span>${[m.society,m.city].filter(Boolean).join(', ')||'—'}</span></div><span class="badge b-${stat}">${stat==='active'?'Active':'Pending'}</span><button class="btn btn-sm btn-ghost" style="margin-top:12px;" onclick="openEditMemberModal('${m.member_id||''}')">✏️ Edit</button></div>`;
+  return`<div class="mc">${avatar}<div class="mc-name">${name}</div><div class="mc-id">${m.member_id||''}</div><div class="mc-row"><i class="fa fa-phone"></i> <span>${m.phone_primary||'—'}</span></div><div class="mc-row"><i class="fa fa-id-card"></i> <span>${m.national_id_number||'—'}</span></div><div class="mc-row"><i class="fa fa-map-marker"></i> <span>${[m.community,m.city].filter(Boolean).join(', ')||'—'}</span></div><span class="badge b-${stat}">${stat==='active'?'Active':'Pending'}</span><div class="btn-row" style="margin-top:12px;flex-wrap:wrap;justify-content:flex-start;"><button class="btn btn-sm btn-ghost" onclick="openEditMemberModal('${m.member_id||''}')">✏️ Edit</button><button class="btn btn-sm btn-navy" onclick="toggleMemberPaymentPanel('${safeId}','${m.member_id||''}')">💰 Record</button></div><div id="member-payment-${safeId}" style="display:none;margin-top:10px;"></div></div>`;
 }
 
 let currentMemberForEdit = null;
