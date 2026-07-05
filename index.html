@@ -795,6 +795,93 @@ body{font-family:var(--fb);background:var(--cream);color:var(--text);min-height:
   </div>
 </div>
 
+<div class="modal-overlay" id="edit-member-modal">
+  <div class="modal" style="max-width:760px;max-height:90vh;overflow:auto;">
+    <h3>Edit Member Profile</h3>
+    <p>Update the member’s full profile, just as you would during registration.</p>
+    <div id="edit-member-status" class="hint" style="margin-bottom:12px;">Loading…</div>
+    <form id="edit-member-form" onsubmit="event.preventDefault();saveMemberEdits();">
+      <input type="hidden" id="edit-member-id">
+      <div class="card" style="padding:18px 20px;margin-bottom:12px;">
+        <div class="card-title">Personal Details</div>
+        <div class="g3 mb">
+          <div class="field"><label>Title</label><select id="edit-title"><option value="">— Select —</option><option>Mr.</option><option>Mrs.</option><option>Miss</option><option>Dr.</option><option>Rev.</option><option>Elder</option><option>Deacon</option><option>Prophetess</option><option>Apostle</option><option>Other</option></select></div>
+          <div class="field"><label>Gender</label><select id="edit-gender"><option value="">— Select —</option><option>Male</option><option>Female</option></select></div>
+          <div class="field"><label>Marital Status</label><select id="edit-marital-status"><option value="">— Select —</option><option>Single</option><option>Married</option><option>Widowed</option><option>Divorced</option><option>Separated</option></select></div>
+        </div>
+        <div class="g3 mb">
+          <div class="field"><label>First Name</label><input id="edit-first-name" placeholder="First name"></div>
+          <div class="field"><label>Middle Name</label><input id="edit-middle-name" placeholder="Optional"></div>
+          <div class="field"><label>Last Name</label><input id="edit-last-name" placeholder="Last name"></div>
+        </div>
+        <div class="g3 mb">
+          <div class="field"><label>Date of Birth</label><input type="date" id="edit-date-of-birth"></div>
+          <div class="field"><label>Nationality</label><input id="edit-nationality" placeholder="e.g. Ghanaian"></div>
+          <div class="field"><label>Country of Origin</label><input id="edit-country-of-origin" placeholder="e.g. Ghana"></div>
+        </div>
+        <div class="g2 mb">
+          <div class="field"><label>National ID Type</label><select id="edit-national-id-type"><option value="">— Select —</option><option>Ghana Card</option><option>Passport</option><option>Voter ID</option><option>NHIS</option><option>Driver's License</option><option>Other</option></select></div>
+          <div class="field"><label>ID Number</label><input id="edit-national-id" placeholder="GHA-XXXXXXXX-X"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:18px 20px;margin-bottom:12px;">
+        <div class="card-title">Contact & Address</div>
+        <div class="g2 mb">
+          <div class="field"><label>Primary Phone</label><input id="edit-phone-primary" placeholder="0244123456"></div>
+          <div class="field"><label>Secondary Phone</label><input id="edit-phone-secondary" placeholder="Optional"></div>
+        </div>
+        <div class="field mb"><label>Email Address</label><input id="edit-email-address" placeholder="Optional"></div>
+        <div class="field mb"><label>Residential Address</label><input id="edit-residential-address" placeholder="House number and street"></div>
+        <div class="g3 mb">
+          <div class="field"><label>Community</label><input id="edit-community" placeholder="Community"></div>
+          <div class="field"><label>City / Town</label><input id="edit-city" placeholder="City"></div>
+          <div class="field"><label>Region</label><select id="edit-region"><option value="">— Select —</option><option>Ashanti</option><option>Greater Accra</option><option>Central</option><option>Eastern</option><option>Western</option><option>Western North</option><option>Brong-Ahafo</option><option>Bono</option><option>Bono East</option><option>Ahafo</option><option>Northern</option><option>Savannah</option><option>North East</option><option>Upper East</option><option>Upper West</option><option>Oti</option><option>Volta</option></select></div>
+        </div>
+        <div class="g2 mb">
+          <div class="field"><label>Country</label><input id="edit-country" value="Ghana"></div>
+          <div class="field"><label>Digital / GPS Address</label><input id="edit-digital-address" placeholder="e.g. AK-123-4567"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:18px 20px;margin-bottom:12px;">
+        <div class="card-title">Profession & Church Details</div>
+        <div class="g2 mb">
+          <div class="field"><label>Occupation</label><input id="edit-occupation" placeholder="Occupation"></div>
+          <div class="field"><label>Employer / Business Name</label><input id="edit-employer-name" placeholder="Optional"></div>
+        </div>
+        <div class="g2 mb">
+          <div class="field"><label>Society</label><input id="edit-society" placeholder="Society"></div>
+          <div class="field"><label>Educational Level</label><select id="edit-educational-level"><option value="">— Select —</option><option>No Formal Education</option><option>Primary</option><option>JHS / Middle School</option><option>SHS / Secondary</option><option>Vocational / Technical</option><option>Diploma</option><option>Undergraduate Degree</option><option>Postgraduate Degree</option><option>PhD</option><option>Other</option></select></div>
+        </div>
+        <div class="field mb"><label>Next of Kin Address</label><input id="edit-next-of-kin-address" placeholder="Address of next of kin"></div>
+        <div class="g3 mb">
+          <div class="field"><label>Membership class attended</label><select id="edit-membership-class"><option value="">— Select —</option><option>Yes</option><option>No</option><option>In Progress</option></select></div>
+          <div class="field"><label>Society Name</label><input id="edit-cell-group" placeholder="Assigned after approval"></div>
+          <div class="field"><label>Ministry / Department of Interest</label><div class="pill-grid" style="margin-top:6px;grid-template-columns:repeat(2,1fr);">
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Choir/Worship"><i class="fa fa-music"></i> Choir / Worship</label>
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Ushering"><i class="fa fa-hands"></i> Ushering</label>
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Children's Ministry"><i class="fa fa-baby"></i> Children's</label>
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Youth Ministry"><i class="fa fa-star"></i> Youth</label>
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Men's Fellowship"><i class="fa fa-user-tie"></i> Men's</label>
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Women's Fellowship"><i class="fa fa-female"></i> Women's</label>
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Media/Tech"><i class="fa fa-video"></i> Media / Tech</label>
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Evangelism"><i class="fa fa-book"></i> Evangelism</label>
+            <label class="pill" onclick="togglePill(this)"><input type="checkbox" value="Prayer Team"><i class="fa fa-praying-hands"></i> Prayer Team</label>
+          </div></div>
+        </div>
+      </div>
+      <div class="card" style="padding:18px 20px;margin-bottom:12px;">
+        <div class="card-title">Pastoral Notes</div>
+        <div class="field mb"><label>Special Needs / Disabilities</label><textarea id="edit-special-needs" placeholder="Optional — for pastoral care purposes"></textarea></div>
+        <label class="agree"><input type="checkbox" id="edit-declaration-agreed"><span>Declaration / consent confirmed for this member.</span></label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeEditMemberModal()">Cancel</button>
+        <button type="submit" class="btn btn-navy" id="btn-save-member-edit">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
 // ══════════════════ SESSION ══════════════════
 let currentUser = null;
@@ -934,6 +1021,20 @@ function getDemoFallback(endpoint, options = {}, fallbackMessage = '') {
     store.members.unshift(member);
     saveDemoStore(store);
     return { success: true, memberId: member.member_id };
+  }
+
+  if ((endpoint === 'members' || endpoint.startsWith('members/')) && method === 'PATCH') {
+    const memberId = endpoint.split('/').slice(1).join('/') || body.member_id;
+    const index = store.members.findIndex(member => member.member_id === memberId);
+    if (index >= 0) {
+      store.members[index] = { ...store.members[index], ...body };
+      if (!store.members[index].full_name) {
+        store.members[index].full_name = [store.members[index].title, store.members[index].first_name, store.members[index].last_name].filter(Boolean).join(' ');
+      }
+      saveDemoStore(store);
+      return { success: true, member: store.members[index] };
+    }
+    return { success: false, message: 'Member not found in demo mode.' };
   }
 
   if (endpoint === 'members/search' && method === 'GET') {
@@ -1173,10 +1274,139 @@ function submitForm(){
 function resetRegForm(){document.querySelectorAll('#page-register input:not([type=checkbox]),#page-register select,#page-register textarea').forEach(el=>el.value='');document.getElementById('country').value='Ghana';document.querySelectorAll('#page-register input[type=checkbox]').forEach(cb=>cb.checked=false);document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));}
 
 // ══════════════════ SEARCH & MEMBERS ══════════════════
+let activeSearchMember = null;
+let searchPaymentConfig = null;
+
+function setSearchPaymentMessage(text, kind = 'ok') {
+  const el = document.getElementById('search-payment-message');
+  if (!el) return;
+  el.className = `toast ${kind === 'err' ? 'err' : 'ok'}`;
+  el.textContent = text;
+  el.style.display = 'block';
+}
+
+function loadSearchPaymentConfig() {
+  if (searchPaymentConfig) return Promise.resolve(searchPaymentConfig);
+  return apiGet('dues/config').then(cfg => {
+    searchPaymentConfig = cfg;
+    return cfg;
+  });
+}
+
+function buildSearchPaymentPanel(member, cfg) {
+  const duesTypes = (cfg && cfg.duesTypes && cfg.duesTypes.length) ? cfg.duesTypes : ['Tithe', 'Harvest Dues', 'Monthly Dues', 'Welfare Dues', 'Special Contribution'];
+  const paymentMethods = (cfg && cfg.paymentMethods && cfg.paymentMethods.length) ? cfg.paymentMethods : ['Cash', 'Mobile Money', 'Bank Transfer', 'Card', 'Other'];
+  const months = (cfg && cfg.months && cfg.months.length) ? cfg.months : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const currentMonth = (cfg && cfg.currentMonth) || 'June';
+  const currentYear = (cfg && cfg.currentYear) || new Date().getFullYear();
+  const today = new Date().toISOString().slice(0, 10);
+  const duesOptions = duesTypes.map(type => `<option value="${type}">${type}</option>`).join('');
+  const methodOptions = paymentMethods.map(type => `<option value="${type}">${type}</option>`).join('');
+  const monthOptions = months.map(month => `<option value="${month}" ${month === currentMonth ? 'selected' : ''}>${month}</option>`).join('');
+  return `
+    <div class="card" style="margin-top:16px;padding:18px 20px;">
+      <div class="card-title">Record Payment Right Away</div>
+      <div id="search-payment-message" class="toast" style="display:none"></div>
+      <div class="g2 mb">
+        <div class="field">
+          <label>Dues Type</label>
+          <select id="search-dues-type">${duesOptions}</select>
+        </div>
+        <div class="field">
+          <label>Amount (GH₵)</label>
+          <input type="number" id="search-dues-amount" step="0.01" min="0.01" placeholder="0.00">
+        </div>
+      </div>
+      <div class="g3 mb">
+        <div class="field">
+          <label>Payment Method</label>
+          <select id="search-dues-method">${methodOptions}</select>
+        </div>
+        <div class="field">
+          <label>Month</label>
+          <select id="search-dues-month">${monthOptions}</select>
+        </div>
+        <div class="field">
+          <label>Year</label>
+          <input type="number" id="search-dues-year" value="${currentYear}">
+        </div>
+      </div>
+      <div class="g3 mb">
+        <div class="field">
+          <label>Payment Date</label>
+          <input type="date" id="search-dues-date" value="${today}">
+        </div>
+        <div class="field">
+          <label>Reference</label>
+          <input type="text" id="search-dues-ref" placeholder="Optional reference">
+        </div>
+        <div class="field">
+          <label>Notes</label>
+          <input type="text" id="search-dues-notes" placeholder="Optional notes">
+        </div>
+      </div>
+      <div class="btn-row">
+        <span class="hint">${member.full_name || member.member_id}</span>
+        <button class="btn btn-green" onclick="recordPaymentFromSearch('${member.member_id || ''}')">💰 Record Payment</button>
+      </div>
+    </div>`;
+}
+
+function recordPaymentFromSearch(memberId) {
+  if (!activeSearchMember && memberId) {
+    activeSearchMember = { member_id: memberId };
+  }
+  if (!activeSearchMember || !activeSearchMember.member_id) {
+    setSearchPaymentMessage('No member is selected for payment.', 'err');
+    return;
+  }
+  const data = {
+    member_id: activeSearchMember.member_id,
+    dues_type: v('search-dues-type'),
+    amount: v('search-dues-amount'),
+    payment_method: v('search-dues-method'),
+    period_month: v('search-dues-month'),
+    period_year: v('search-dues-year'),
+    payment_date: v('search-dues-date'),
+    reference: v('search-dues-ref'),
+    notes: v('search-dues-notes'),
+    recorded_by: currentUser?.username || 'admin'
+  };
+  const btn = document.querySelector('#search-result .btn-green');
+  if (btn) btn.disabled = true;
+  setSearchPaymentMessage('Saving payment…');
+  apiPost('dues', data).then(r => {
+    if (btn) btn.disabled = false;
+    if (!r.success) {
+      setSearchPaymentMessage(r.message || 'Unable to record payment.', 'err');
+      return;
+    }
+    setSearchPaymentMessage(`✅ Payment recorded for ${activeSearchMember.full_name || activeSearchMember.member_id}.`, 'ok');
+    ['search-dues-amount', 'search-dues-ref', 'search-dues-notes'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  }).catch(e => {
+    if (btn) btn.disabled = false;
+    setSearchPaymentMessage('❌ ' + e.message, 'err');
+  });
+}
+
 function doSearch(){
   const q=document.getElementById('search-input').value.trim();if(!q)return;
   document.getElementById('search-spin').style.display='block';document.getElementById('search-result').innerHTML='';
-  apiGet('members/search', {query:q}).then(m=>{document.getElementById('search-spin').style.display='none';if(m&&m.error){document.getElementById('search-result').innerHTML=errBox(m.error);return;}document.getElementById('search-result').innerHTML=m?'<div class="mgrid">'+mCard(m)+'</div>':'<div class="empty"><div class="ei">🔍</div><p>No member found.</p></div>';}).catch(e=>{document.getElementById('search-spin').style.display='none';document.getElementById('search-result').innerHTML=errBox(e.message);});
+  activeSearchMember = null;
+  apiGet('members/search', {query:q}).then(m=>{
+    document.getElementById('search-spin').style.display='none';
+    if(m&&m.error){document.getElementById('search-result').innerHTML=errBox(m.error);return;}
+    if(!m){document.getElementById('search-result').innerHTML='<div class="empty"><div class="ei">🔍</div><p>No member found.</p></div>';return;}
+    activeSearchMember = m;
+    loadSearchPaymentConfig().then(cfg => {
+      document.getElementById('search-result').innerHTML = `<div class="mgrid">${mCard(m)}</div>${buildSearchPaymentPanel(m, cfg)}`;
+    }).catch(() => {
+      document.getElementById('search-result').innerHTML = `<div class="mgrid">${mCard(m)}</div>${buildSearchPaymentPanel(m, null)}`;
+    });
+  }).catch(e=>{document.getElementById('search-spin').style.display='none';document.getElementById('search-result').innerHTML=errBox(e.message);});
 }
 function loadMembers(page = 1){
   const q=document.getElementById('members-search-input').value.trim();
@@ -1226,7 +1456,123 @@ function mCard(m){
   const stat=m.membership_class_attended==='Yes'?'active':'pending';
   const avatarSrc = getMemberAvatarSrc(m);
   const avatar = `<div class="mc-av mc-av-photo" style="background-image:url('${avatarSrc}');"><span>${ini}</span></div>`;
-  return`<div class="mc">${avatar}<div class="mc-name">${name}</div><div class="mc-id">${m.member_id||''}</div><div class="mc-row"><i class="fa fa-phone"></i> <span>${m.phone_primary||'—'}</span></div><div class="mc-row"><i class="fa fa-id-card"></i> <span>${m.national_id_number||'—'}</span></div><div class="mc-row"><i class="fa fa-map-marker"></i> <span>${[m.society,m.city].filter(Boolean).join(', ')||'—'}</span></div><span class="badge b-${stat}">${stat==='active'?'Active':'Pending'}</span></div>`;
+  return`<div class="mc">${avatar}<div class="mc-name">${name}</div><div class="mc-id">${m.member_id||''}</div><div class="mc-row"><i class="fa fa-phone"></i> <span>${m.phone_primary||'—'}</span></div><div class="mc-row"><i class="fa fa-id-card"></i> <span>${m.national_id_number||'—'}</span></div><div class="mc-row"><i class="fa fa-map-marker"></i> <span>${[m.society,m.city].filter(Boolean).join(', ')||'—'}</span></div><span class="badge b-${stat}">${stat==='active'?'Active':'Pending'}</span><button class="btn btn-sm btn-ghost" style="margin-top:12px;" onclick="openEditMemberModal('${m.member_id||''}')">✏️ Edit</button></div>`;
+}
+
+let currentMemberForEdit = null;
+function setEditFieldValue(id, value){
+  const el=document.getElementById(id);
+  if(el) el.value = value || '';
+}
+function setEditPillSelection(values){
+  const selected = (values || '').split(',').map(v => v.trim()).filter(Boolean);
+  document.querySelectorAll('#edit-member-modal .pill').forEach(pill => {
+    const input = pill.querySelector('input');
+    const checked = !!input && selected.includes(input.value);
+    if(input) input.checked = checked;
+    pill.classList.toggle('on', checked);
+  });
+}
+function populateEditMemberForm(member){
+  if(!member) return;
+  currentMemberForEdit = member;
+  document.getElementById('edit-member-id').value = member.member_id || '';
+  setEditFieldValue('edit-title', member.title || '');
+  setEditFieldValue('edit-first-name', member.first_name || '');
+  setEditFieldValue('edit-middle-name', member.middle_name || '');
+  setEditFieldValue('edit-last-name', member.last_name || '');
+  setEditFieldValue('edit-gender', member.gender || '');
+  setEditFieldValue('edit-date-of-birth', member.date_of_birth || '');
+  setEditFieldValue('edit-marital-status', member.marital_status || '');
+  setEditFieldValue('edit-nationality', member.nationality || '');
+  setEditFieldValue('edit-country-of-origin', member.country_of_origin || '');
+  setEditFieldValue('edit-national-id-type', member.national_id_type || '');
+  setEditFieldValue('edit-national-id', member.national_id_number || '');
+  setEditFieldValue('edit-phone-primary', member.phone_primary || '');
+  setEditFieldValue('edit-phone-secondary', member.phone_secondary || '');
+  setEditFieldValue('edit-email-address', member.email_address || '');
+  setEditFieldValue('edit-residential-address', member.residential_address || '');
+  setEditFieldValue('edit-community', member.community || '');
+  setEditFieldValue('edit-city', member.city || '');
+  setEditFieldValue('edit-region', member.region || '');
+  setEditFieldValue('edit-country', member.country || 'Ghana');
+  setEditFieldValue('edit-digital-address', member.digital_address || '');
+  setEditFieldValue('edit-occupation', member.occupation || '');
+  setEditFieldValue('edit-employer-name', member.employer_name || '');
+  setEditFieldValue('edit-society', member.society || '');
+  setEditFieldValue('edit-educational-level', member.educational_level || '');
+  setEditFieldValue('edit-next-of-kin-address', member.next_of_kin_address || '');
+  setEditFieldValue('edit-membership-class', member.membership_class_attended || '');
+  setEditFieldValue('edit-cell-group', member.cell_group || '');
+  setEditPillSelection(member.ministry_interest || '');
+  setEditFieldValue('edit-special-needs', member.special_needs || '');
+  const declaration=document.getElementById('edit-declaration-agreed');
+  if(declaration) declaration.checked = member.declaration_agreed === true || String(member.declaration_agreed).toUpperCase() === 'TRUE';
+  document.getElementById('edit-member-status').textContent='Editing '+(member.full_name||member.member_id);
+}
+function openEditMemberModal(memberId){
+  if(!memberId){showToast('app-toast','Select a member first.','err');return;}
+  const modal=document.getElementById('edit-member-modal');
+  if(modal)modal.classList.add('open');
+  document.getElementById('edit-member-id').value=memberId;
+  document.getElementById('edit-member-form').reset();
+  document.getElementById('edit-country').value='Ghana';
+  document.getElementById('edit-member-status').textContent='Loading member…';
+  apiGet('members/search',{query:memberId}).then(member=>{
+    if(!member||member.error||!member.member_id){document.getElementById('edit-member-status').textContent='Unable to load member.';return;}
+    populateEditMemberForm(member);
+  }).catch(e=>{document.getElementById('edit-member-status').textContent='Unable to load member.';showToast('app-toast','❌ '+e.message,'err');});
+}
+function closeEditMemberModal(){
+  const modal=document.getElementById('edit-member-modal');
+  if(modal)modal.classList.remove('open');
+  currentMemberForEdit=null;
+}
+function saveMemberEdits(){
+  if(!currentMemberForEdit){showToast('app-toast','No member selected.','err');return;}
+  const selectedInterests = Array.from(document.querySelectorAll('#edit-member-modal .pill input:checked')).map(cb => cb.value);
+  const data={
+    title:v('edit-title'),
+    first_name:v('edit-first-name'),
+    middle_name:v('edit-middle-name'),
+    last_name:v('edit-last-name'),
+    gender:v('edit-gender'),
+    date_of_birth:v('edit-date-of-birth'),
+    marital_status:v('edit-marital-status'),
+    nationality:v('edit-nationality'),
+    country_of_origin:v('edit-country-of-origin'),
+    national_id_type:v('edit-national-id-type'),
+    national_id_number:v('edit-national-id'),
+    phone_primary:v('edit-phone-primary'),
+    phone_secondary:v('edit-phone-secondary'),
+    email_address:v('edit-email-address'),
+    residential_address:v('edit-residential-address'),
+    community:v('edit-community'),
+    city:v('edit-city'),
+    region:v('edit-region'),
+    country:v('edit-country'),
+    digital_address:v('edit-digital-address'),
+    occupation:v('edit-occupation'),
+    employer_name:v('edit-employer-name'),
+    society:v('edit-society'),
+    educational_level:v('edit-educational-level'),
+    next_of_kin_address:v('edit-next-of-kin-address'),
+    membership_class_attended:v('edit-membership-class'),
+    cell_group:v('edit-cell-group'),
+    ministry_interest:selectedInterests.join(', '),
+    special_needs:v('edit-special-needs'),
+    declaration_agreed: document.getElementById('edit-declaration-agreed').checked ? 'TRUE' : 'FALSE'
+  };
+  const btn=document.getElementById('btn-save-member-edit');
+  btn.disabled=true;btn.textContent='Saving…';
+  apiPatch('members/'+currentMemberForEdit.member_id, data).then(r=>{
+    btn.disabled=false;btn.textContent='Save Changes';
+    if(!r.success){showToast('app-toast','❌ '+(r.message||'Unable to update member.'),'err');return;}
+    showToast('app-toast','✅ Member updated.','ok');
+    closeEditMemberModal();
+    if(document.getElementById('page-search').classList.contains('active')) doSearch();
+    if(document.getElementById('page-members').classList.contains('active')) loadMembers(1);
+  }).catch(e=>{btn.disabled=false;btn.textContent='Save Changes';showToast('app-toast','❌ '+e.message,'err');});
 }
 
 // ══════════════════ DUES ══════════════════
